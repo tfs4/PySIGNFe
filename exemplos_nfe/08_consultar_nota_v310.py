@@ -20,7 +20,7 @@ if __name__ == '__main__':
     chave = u'31161011111111111111551010000000271543577682'
     
     #Consultar NFe
-    processo = nova_nfe.consultar_nfe(chave=chave, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.consultar_nfe(chave=chave, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status: ' + processo.resposta.cStat.valor)
     print('Motivo: ' + processo.resposta.xMotivo.valor)

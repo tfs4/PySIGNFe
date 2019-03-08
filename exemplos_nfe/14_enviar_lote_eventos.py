@@ -42,7 +42,7 @@ if __name__ == '__main__':
     #tipo = 'cce'        ##Carta Correcao
     tipo = 'can'        ##Cancelamento
     
-    processo = nova_nfe.enviar_lote_evento(lista_eventos=lista_eventos, tipo=tipo, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.enviar_lote_evento(lista_eventos=lista_eventos, tipo=tipo, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status do Lote: ', processo.resposta.cStat.valor)
     print('Motivo do Lote: ', processo.resposta.xMotivo.valor)

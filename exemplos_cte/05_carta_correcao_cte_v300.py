@@ -39,7 +39,7 @@ if __name__ == '__main__':
     
     correcoes.append(corr2)
     
-    resultados = mycte.emitir_carta_correcao(chave=chave, cnpj=cnpj, correcoes=correcoes, sequencia=sequencia, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.00', ambiente=2, estado=u'MG', tipo_contingencia=False)
+    resultados = mycte.emitir_carta_correcao(chave=chave, cnpj=cnpj, correcoes=correcoes, sequencia=sequencia, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.00', ambiente=2, estado=u'SP', tipo_contingencia=False)
     
     print("\nResultado:\n")
     '''Retorna um dicionario'''

@@ -23,7 +23,7 @@ if __name__ == '__main__':
     protocolo = u'135100026181256'
     justificativa = u'Teste de cancelamento de CT-e'
     
-    resultados = mycte.cancelar_cte(cnpj=cnpj, chave=chave, protocolo=protocolo, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.00', ambiente=2, estado=u'MG', tipo_contingencia=False)
+    resultados = mycte.cancelar_cte(cnpj=cnpj, chave=chave, protocolo=protocolo, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.00', ambiente=2, estado=u'SP', tipo_contingencia=False)
     print("\nResultado:\n")
     '''Retorna um dicionario'''
     for key, value in resultados.items():

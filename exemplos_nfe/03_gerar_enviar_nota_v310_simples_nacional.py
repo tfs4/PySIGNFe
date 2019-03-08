@@ -155,7 +155,7 @@ if __name__ == '__main__':
     nfe.gera_nova_chave()
     
     #Gera e emite nota fiscal
-    processos = nova_nfe.processar_nota(xml_nfe=nfe.xml, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False, consumidor=False, consultar_servico=False)
+    processos = nova_nfe.processar_nota(xml_nfe=nfe.xml, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False, consumidor=False, consultar_servico=False)
     
     print('Status do Lote: ', processos['lote'].resposta.cStat.valor)
     print('Motivo do Lote: ', processos['lote'].resposta.xMotivo.valor)    

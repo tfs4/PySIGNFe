@@ -47,6 +47,18 @@ from .manual_600 import ConsSitNFe_310, RetConsSitNFe_310, ConsCad_310, RetConsC
 from .manual_600 import ConsStatServ_310, RetConsStatServ_310
 from .manual_600 import EventoCCe_310, EnvEventoCCe_310, RetEnvEventoCCe_310, ProcEventoNFeCCe_310
 
+#
+# Manual do Contribuinte versão 7.00
+# NF-e leiaute 4.00
+#
+from .manual_700 import SOAPEnvio_400, SOAPRetorno_400
+from .manual_700 import EnviNFe_400, RetEnviNFe_400
+from .manual_700 import ConsReciNFe_400, RetConsReciNFe_400, ProtNFe_400, ProcNFe_400
+from .manual_700 import CancNFe_400, RetCancNFe_400, ProcCancNFe_400, EventoCancNFe_400, EnvEventoCancNFe_400, RetEnvEventoCancNFe_400, ProcEventoNFeCancNFe_400
+from .manual_700 import InutNFe_400, RetInutNFe_400, ProcInutNFe_400
+from .manual_700 import ConsSitNFe_400, RetConsSitNFe_400, ConsCad_400, RetConsCad_400
+from .manual_700 import ConsStatServ_400, RetConsStatServ_400
+from .manual_700 import EventoCCe_400, EnvEventoCCe_400, RetEnvEventoCCe_400, ProcEventoNFeCCe_400
 
 from .manifestacao_destinatario import EventoConfRecebimento_100, EnvEventoConfRecebimento_100, RetEnvEventoConfRecebimento_100, ProcEventoNFeConfRecebimento_100
 from .manifestacao_destinatario import ConsNFeDest_101, RetConsNFeDest_101
@@ -78,8 +90,8 @@ class ProcessoNFe(object):
 class ProcessadorNFe(object):
     def __init__(self):
         self.ambiente = 2
-        self.estado = u'MG'
-        self.versao = u'2.00'
+        self.estado = u'SP'
+        self.versao = u'4.00'
         self.certificado = Certificado()
         self.caminho = u''
         self.salvar_arquivos = True
@@ -140,6 +152,26 @@ class ProcessadorNFe(object):
             else:
                 self._servidor = webservices_3.ESTADO_WS_CONTINGENCIA[self.estado][ambiente][u'servidor']
                 self._url      = webservices_3.ESTADO_WS_CONTINGENCIA[self.estado][ambiente][servico]
+
+
+        if self.versao == u'4.00':
+            self._soap_envio   = SOAPEnvio_400()
+            self._soap_envio.webservice = webservices_3.METODO_WS[servico]['webservice']
+            self._soap_envio.metodo     = webservices_3.METODO_WS[servico]['metodo']
+            self._soap_envio.cUF        = UF_CODIGO[self.estado]
+            self._soap_envio.envio      = envio
+
+            self._soap_retorno = SOAPRetorno_400()
+            self._soap_retorno.webservice = webservices_3.METODO_WS[servico]['webservice']
+            self._soap_retorno.metodo     = webservices_3.METODO_WS[servico]['metodo']
+            self._soap_retorno.resposta   = resposta
+
+            if not self.contingencia:
+                self._servidor = webservices_3.ESTADO_WS[self.estado][ambiente][u'servidor']
+                self._url      = webservices_3.ESTADO_WS[self.estado][ambiente][servico]
+            else:
+                self._servidor = webservices_3.ESTADO_WS_CONTINGENCIA[self.estado][ambiente][u'servidor']
+                self._url      = webservices_3.ESTADO_WS_CONTINGENCIA[self.estado][ambiente][servico]
             
         self.certificado.prepara_certificado_arquivo_pfx()
 
@@ -150,7 +182,6 @@ class ProcessadorNFe(object):
         # ao mesmo tempo
         #
         self.caminho_temporario = self.caminho_temporario or u'/tmp/'
-
 
         nome_arq_chave = self.caminho_temporario + uuid4().hex
         arq_tmp = open(nome_arq_chave, 'w')
@@ -207,6 +238,10 @@ class ProcessadorNFe(object):
             envio = EnviNFe_310()
             resposta = RetEnviNFe_310()
             webservice = WS_NFE_AUTORIZACAO
+        elif self.versao == u'4.00':
+            envio = EnviNFe_400()
+            resposta = RetEnviNFe_400()
+            webservice = WS_NFE_AUTORIZACAO
 
         processo = ProcessoNFe(webservice=webservice, envio=envio, resposta=resposta)
 
@@ -261,6 +296,10 @@ class ProcessadorNFe(object):
         elif self.versao == u'3.10':
             envio = ConsReciNFe_310()
             resposta = RetConsReciNFe_310()
+            webservice = WS_NFE_RET_AUTORIZACAO
+        elif self.versao == u'4.00':
+            envio = ConsReciNFe_400()
+            resposta = RetConsReciNFe_400()
             webservice = WS_NFE_RET_AUTORIZACAO
 
         processo = ProcessoNFe(webservice=webservice, envio=envio, resposta=resposta)
@@ -439,6 +478,9 @@ class ProcessadorNFe(object):
         elif self.versao == u'3.10':
             envio = ConsCad_310()
             resposta = RetConsCad_310()
+        elif self.versao == u'4.00':
+            envio = ConsCad_400()
+            resposta = RetConsCad_400()
 
         processo = ProcessoNFe(webservice=WS_NFE_CONSULTA_CADASTRO, envio=envio, resposta=resposta)
 
@@ -485,15 +527,26 @@ class ProcessadorNFe(object):
         # Determina o tipo do evento
         #
         dir = ''
+
         if tipo_evento == 'cce':
-            classe_evento = ProcEventoNFeCCe_310
-            envio = EnvEventoCCe_310()
-            resposta = RetEnvEventoCCe_310()
+            if self.versao == u'3.10':
+                classe_evento = ProcEventoNFeCCe_310
+                envio = EnvEventoCCe_310()
+                resposta = RetEnvEventoCCe_310()
+            elif self.versao == u'4.00':
+                classe_evento = ProcEventoNFeCCe_400
+                envio = EnvEventoCCe_400()
+                resposta = RetEnvEventoCCe_400()
             dir = 'Eventos/Correcao'
         elif tipo_evento == 'can':
-            classe_evento = ProcEventoNFeCancNFe_310
-            envio = EnvEventoCancNFe_310()
-            resposta = RetEnvEventoCancNFe_310()
+            if self.versao == u'3.10':
+                classe_evento = ProcEventoNFeCancNFe_310
+                envio = EnvEventoCancNFe_310()
+                resposta = RetEnvEventoCancNFe_310()
+            elif self.versao == u'4.00':
+                classe_evento = ProcEventoNFeCancNFe_400
+                envio = EnvEventoCancNFe_400()
+                resposta = RetEnvEventoCancNFe_400()
             dir = 'Eventos/Cancelamento'
         elif tipo_evento == 'confrec':
             classe_evento = ProcEventoNFeConfRecebimento_100
@@ -560,8 +613,11 @@ class ProcessadorNFe(object):
 
     def cancelar_nota(self, ambiente=None, chave_nfe=None, numero_protocolo=None,
                       justificativa=None, data=None, numero_lote=None):
-            
-        evento = EventoCancNFe_310()
+
+        if self.versao == u'3.10':
+            evento = EventoCancNFe_310()
+        elif self.versao == u'4.00':
+            evento = EventoCancNFe_400()
         evento.infEvento.tpAmb.valor = ambiente or self.ambiente
         evento.infEvento.cOrgao.valor = UF_CODIGO[self.estado]
         evento.infEvento.CNPJ.valor = chave_nfe[6:20] # Extrai o CNPJ da própria chave da NF-e
@@ -575,8 +631,12 @@ class ProcessadorNFe(object):
         
     def corrigir_nota(self, chave_nfe=None, texto_correcao=None, ambiente=None,
                       sequencia=None, data=None, numero_lote=None):
-                      
-        evento = EventoCCe_310()
+
+        if self.versao == u'3.10':
+            evento = EventoCCe_310()
+        elif self.versao == u'4.00':
+            evento = EventoCCe_400()
+
         evento.infEvento.tpAmb.valor = ambiente or self.ambiente
         evento.infEvento.cOrgao.valor = UF_CODIGO[self.estado]
         evento.infEvento.CNPJ.valor = chave_nfe[6:20] # Extrai o CNPJ da própria chave da NF-e
@@ -619,6 +679,9 @@ class ProcessadorNFe(object):
         elif self.versao == u'3.10':
             envio = InutNFe_310()
             resposta = RetInutNFe_310()
+        elif self.versao == u'4.00':
+            envio = InutNFe_400()
+            resposta = RetInutNFe_400()
 
         processo = ProcessoNFe(webservice=WS_NFE_INUTILIZACAO, envio=envio, resposta=resposta)
 
@@ -672,6 +735,9 @@ class ProcessadorNFe(object):
             elif self.versao == u'3.10':
                 processo_inutilizacao_nfe = ProcInutNFe_310()
 
+            elif self.versao == u'4.00':
+                processo_inutilizacao_nfe = ProcInutNFe_400()
+
             processo_inutilizacao_nfe.inutNFe = envio
             processo_inutilizacao_nfe.retInutNFe = resposta
 
@@ -716,6 +782,9 @@ class ProcessadorNFe(object):
         elif self.versao == u'3.10':
             envio = ConsSitNFe_310()
             resposta = RetConsSitNFe_310()
+        elif self.versao == u'4.00':
+            envio = ConsSitNFe_310()
+            resposta = RetConsSitNFe_400()
 
         processo = ProcessoNFe(webservice=WS_NFE_CONSULTA, envio=envio, resposta=resposta)
 
@@ -758,6 +827,9 @@ class ProcessadorNFe(object):
         elif self.versao == u'3.10':
             envio = ConsStatServ_310()
             resposta = RetConsStatServ_310()
+        elif self.versao == u'4.00':
+            envio = ConsStatServ_400()
+            resposta = RetConsStatServ_400()
 
         processo = ProcessoNFe(webservice=WS_NFE_SITUACAO, envio=envio, resposta=resposta)
 
@@ -807,6 +879,8 @@ class ProcessadorNFe(object):
             envio = EnviNFe_200()
         elif self.versao == u'3.10':
             envio = EnviNFe_310()
+        elif self.versao == u'4.00':
+            envio = EnviNFe_400()
             
         processo = ProcessoNFe(envio=envio)
         
@@ -872,7 +946,7 @@ class ProcessadorNFe(object):
                 if (
                     ((self.versao == '1.10') and (proc_consulta.resposta.infProt.cStat.valor in ('217', '999',)))
                     or
-                    ((self.versao in ['2.00', '3.10']) and (proc_consulta.resposta.cStat.valor in ('100', '150', '110', '301', '302')))
+                    ((self.versao in ['2.00', '3.10', '4.00']) and (proc_consulta.resposta.cStat.valor in ('100', '150', '110', '301', '302')))
                 ):
                     #
                     # Interrompe todo o processo
@@ -946,6 +1020,8 @@ class ProcessadorNFe(object):
             processo = ProcNFe_200()
         elif self.versao == u'3.10':
             processo = ProcNFe_310()
+        elif self.versao == u'4.00':
+            processo = ProcNFe_400()
         
         processo.NFe     = nfe
         processo.protNFe = protnfe_recibo
@@ -1141,7 +1217,7 @@ class DANFE(object):
         self.protNFe    = None
         self.retCancNFe = None
         self.danfe      = None
-        self.versao     = '2.00'
+        self.versao     = '4.00'
 
         self.obs_impressao    = u'DANFE gerado em %(now:%d/%m/%Y, %H:%M:%S)s'
         self.nome_sistema     = u''
@@ -1159,12 +1235,16 @@ class DANFE(object):
                 self.protNFe = ProtNFe_200()
             elif self.versao == u'3.10':
                 self.protNFe = ProtNFe_310()
+            elif self.versao == u'4.00':
+                self.protNFe = ProtNFe_400()
 
         if self.retCancNFe is None:
             if self.versao == u'2.00':
                 self.retCancNFe = RetCancNFe_200()
             elif self.versao == u'3.10':
                 self.retCancNFe = RetCancNFe_310()
+            elif self.versao == u'4.00':
+                self.retCancNFe = RetCancNFe_400()
 
         #
         # Prepara o queryset para impressão
@@ -1312,12 +1392,16 @@ class DANFE(object):
                 self.protNFe = ProtNFe_200()
             elif self.versao == u'3.10':
                 self.protNFe = ProtNFe_310()
+            elif self.versao == u'4.00':
+                self.protNFe = ProtNFe_400()
 
         if self.retCancNFe is None:
             if self.versao == u'2.00':
                 self.retCancNFe = RetCancNFe_200()
             elif self.versao == u'3.10':
                 self.retCancNFe = RetCancNFe_310()
+            elif self.versao == u'4.00':
+                self.retCancNFe = RetCancNFe_400()
 
         #
         # Prepara o queryset para impressão

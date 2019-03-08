@@ -35,11 +35,11 @@ if __name__ == '__main__':
     
     ##Justificativa é obrigatória caso tipo_evento = MD_OPERACAO_NAO_REALIZADA
     #justificativa = u'Teste manifestacao destinatario operacao nao realizada.'
-    #resultados = nova_nfe.efetuar_manifesto(cnpj=cnpj, tipo_manifesto=tipo_manifesto, chave=chave, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'2.00', ambiente=2, estado=u'MG', tipo_contingencia=False)
+    #resultados = nova_nfe.efetuar_manifesto(cnpj=cnpj, tipo_manifesto=tipo_manifesto, chave=chave, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'2.00', ambiente=2, estado=u'SP', tipo_contingencia=False)
     
     #Muitos estados ainda nao implementaram Menisfestacao do destinatario,
     # caso queira enviar para o webservice do estado passe o parametro ambiente_nacional=False
-    processo = nova_nfe.efetuar_manifesto(cnpj=cnpj, tipo_manifesto=tipo_manifesto, chave=chave, ambiente_nacional=True, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.efetuar_manifesto(cnpj=cnpj, tipo_manifesto=tipo_manifesto, chave=chave, ambiente_nacional=True, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status do Lote: ', processo.resposta.cStat.valor)
     print('Motivo do Lote: ', processo.resposta.xMotivo.valor)    

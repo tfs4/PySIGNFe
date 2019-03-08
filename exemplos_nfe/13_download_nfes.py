@@ -22,7 +22,7 @@ if __name__ == '__main__':
     lista_chaves = [u'35100910142785000190552000000000071946226632', u'13140311707347000195650030000004591064552496']
     
     ##Atualmente apenas o Ceará possui webservice para download de Nfes, por isso é mais seguro manter ambiente_nacional=True
-    processo = nova_nfe.download_notas(cnpj=cnpj, lista_chaves=lista_chaves, ambiente_nacional=True, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.download_notas(cnpj=cnpj, lista_chaves=lista_chaves, ambiente_nacional=True, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Proc XML: ', processo.resposta.original)
     
