@@ -17,7 +17,7 @@ class InutNFe(inutnfe_310.InutNFe):
         super(InutNFe, self).__init__()
         self.infInut = InfInutEnviado()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'inutNFe_v3.10.xsd'
+        self.arquivo_esquema = u'inutNFe_v4.00.xsd'
         
 
 class InfInutRecebido(inutnfe_310.InfInutRecebido):
@@ -29,10 +29,10 @@ class InfInutRecebido(inutnfe_310.InfInutRecebido):
 class RetInutNFe(inutnfe_310.RetInutNFe):
     def __init__(self):
         super(RetInutNFe, self).__init__()
-        self.versao = TagDecimal(nome=u'retInutNFe', codigo=u'DR01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao = TagDecimal(nome=u'retInutNFe', codigo=u'DR01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.infInut = InfInutRecebido()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'retInutNFe_v3.10.xsd'
+        self.arquivo_esquema = u'retInutNFe_v4.00.xsd'
 
 
 
@@ -44,10 +44,10 @@ class ProcInutNFe(inutnfe_310.ProcInutNFe):
         # poder validar no XSD. Os outros arquivos proc, procCancNFe, e procNFe
         # começam com minúscula mesmo
         #
-        self.versao = TagDecimal(nome=u'ProcInutNFe', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao = TagDecimal(nome=u'ProcInutNFe', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.inutNFe = InutNFe()
         self.retInutNFe = RetInutNFe()
 
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'procInutNFe_v3.10.xsd'
+        self.arquivo_esquema = u'procInutNFe_v4.00.xsd'
 

@@ -4,7 +4,7 @@ import os
 
 from pysignfe.nfe.manual_401 import cancnfe_200
 from pysignfe.xml_sped import *
-from pysignfe.nfe.manual_500 import ESQUEMA_ATUAL
+from pysignfe.nfe.manual_700 import ESQUEMA_ATUAL
 
 DIRNAME = os.path.dirname(__file__)
 
@@ -16,10 +16,10 @@ class InfCancEnviado(cancnfe_200.InfCancEnviado):
 class CancNFe(cancnfe_200.CancNFe):
     def __init__(self):
         super(CancNFe, self).__init__()
-        self.versao    = TagDecimal(nome=u'cancNFe', codigo=u'CP01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao    = TagDecimal(nome=u'cancNFe', codigo=u'CP01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.infCanc   = InfCancEnviado()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'cancNFe_v3.10.xsd'
+        self.arquivo_esquema = u'cancNFe_v2.00.xsd'
 
 
 class InfCancRecebido(cancnfe_200.InfCancRecebido):
@@ -30,10 +30,10 @@ class InfCancRecebido(cancnfe_200.InfCancRecebido):
 class RetCancNFe(cancnfe_200.RetCancNFe):
     def __init__(self):
         super(RetCancNFe, self).__init__()
-        self.versao = TagDecimal(nome=u'retCancNFe', codigo=u'CR01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao = TagDecimal(nome=u'retCancNFe', codigo=u'CR01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.infCanc = InfCancRecebido()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'retCancNFe_v3.10.xsd'
+        self.arquivo_esquema = u'retCancNFe_v2.00.xsd'
 
 
 class ProcCancNFe(cancnfe_200.ProcCancNFe):
@@ -43,8 +43,8 @@ class ProcCancNFe(cancnfe_200.ProcCancNFe):
         # Atenção --- a tag procCancNFe tem que começar com letra minúscula, para
         # poder validar no XSD.
         #
-        self.versao = TagDecimal(nome=u'procCancNFe', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao = TagDecimal(nome=u'procCancNFe', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.cancNFe = CancNFe()
         self.retCancNFe = RetCancNFe()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'procCancNFe_v3.10.xsd'
+        self.arquivo_esquema = u'procCancNFe_v2.00.xsd'

@@ -568,7 +568,7 @@ class nf_e(NotaFiscal):
         p.versao = versao
         p.estado = estado
         p.caminho = caminho
-        
+
         if estado in ('AC', 'AL', 'AP', 'DF', 'ES', 'PB', 'RJ', 'RN', 'RO', 'RR', 'SC', 'SE', 'TO'):
             #SVRS[NFE_AMBIENTE_PRODUCAO][u'servidor'] = u'svp-ws.sefazvirtual.rs.gov.br'
             if versao == '3.10':
@@ -594,7 +594,8 @@ class nf_e(NotaFiscal):
         p.certificado.key_str = key
         p.contingencia = contingencia
         p.salvar_arquivos = salvar_arquivos
-        
+
+        print('Versao: ' + versao)
         processo = p.consultar_cadastro_contribuinte(cpf_cnpj=cpf_cnpj,
                                                      inscricao_estadual=inscricao_estadual,
                                                      ambiente=ambiente)

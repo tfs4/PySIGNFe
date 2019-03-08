@@ -2,14 +2,53 @@
 
 import os
 
-from pysignfe.nfe.manual_600 import soap_310
 from pysignfe.xml_sped import *
 
 DIRNAME = os.path.dirname(__file__)
 
-class NFeDadosMsg(soap_310.NFeDadosMsg):
+class NFeCabecMsg(XMLNFe):
+    def __init__(self):
+        super(NFeCabecMsg, self).__init__()
+        self.webservice = u''
+        self.cUF         = TagInteiro(nome=u'cUF'        , codigo=u'', raiz=u'//cabecMsg', tamanho=[2, 2], valor=35)
+        self.versaoDados = TagDecimal(nome=u'versaoDados', codigo=u'', raiz=u'//cabecMsg', tamanho=[1, 4], valor=u'4.00')
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += u'<nfeCabecMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/' + self.webservice + u'">'
+        xml += self.cUF.xml
+        xml += self.versaoDados.xml
+        xml += u'</nfeCabecMsg>'
+        return xml
+
+    def set_xml(self, arquivo):
+        if self._le_xml(arquivo):
+            self.cUF.xml         = arquivo
+            self.versaoDados.xml = arquivo
+
+        return self.xml
+
+    xml = property(get_xml, set_xml)
+
+class NFeDadosMsg(XMLNFe):
     def __init__(self):
         super(NFeDadosMsg, self).__init__()
+        self.webservice = u''
+        self.dados = None
+        self.versaoDados = TagDecimal(nome=u'versaoDados', codigo=u'', raiz=u'//cabecMsg', tamanho=[1, 4], valor=u'4.00')
+
+    def get_xml(self):
+        xml = XMLNFe.get_xml(self)
+        xml += u'<nfeDadosMsg xmlns="http://www.portalfiscal.inf.br/nfe/wsdl/' + self.webservice + u'">'
+        xml += tira_abertura(self.dados.xml)
+        xml += u'</nfeDadosMsg>'
+        return xml
+
+    def set_xml(self, arquivo):
+        pass
+
+    xml = property(get_xml, set_xml)
+
 
 
 class SOAPEnvio(XMLNFe):
@@ -19,6 +58,7 @@ class SOAPEnvio(XMLNFe):
         self.metodo = u''
         self.cUF    = None
         self.envio  = None
+        #self.nfeCabecMsg = NFeCabecMsg()
         self.nfeDadosMsg = NFeDadosMsg()
         self._header = {u'content-type': u'application/soap+xml; charset=utf-8'}
 
@@ -73,4 +113,3 @@ class SOAPRetorno(XMLNFe):
             self.resposta.xml = arquivo
 
     xml = property(get_xml, set_xml)
-

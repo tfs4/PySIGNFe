@@ -3,9 +3,9 @@ import os
 
 from pysignfe.xml_sped import *
 from pysignfe.nfe.manual_500 import envinfe_310
-from pysignfe.nfe.manual_600 import ESQUEMA_ATUAL
-from .nfe_310 import NFe
-from .consrecinfe_310 import ProtNFe
+from pysignfe.nfe.manual_700 import ESQUEMA_ATUAL
+from .nfe_400 import NFe
+from .consrecinfe_400 import ProtNFe
 
 DIRNAME = os.path.dirname(__file__)
 
@@ -13,7 +13,7 @@ class EnviNFe(envinfe_310.EnviNFe):
     def __init__(self):
         super(EnviNFe, self).__init__()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'enviNFe_v3.10.xsd'
+        self.arquivo_esquema = u'enviNFe_v4.00.xsd'
         
     def get_xml(self):
         return super(EnviNFe, self).get_xml()
@@ -42,7 +42,7 @@ class RetEnviNFe(envinfe_310.RetEnviNFe):
         ##Caso processamento sincrono do lote, dados do processamento sao recebidos na mesma conexao
         self.protNFe  = ProtNFe()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema/', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'retEnviNFe_v3.10.xsd'
+        self.arquivo_esquema = u'retEnviNFe_v4.00.xsd'
         
     def get_xml(self):
         xml = XMLNFe.get_xml(self)

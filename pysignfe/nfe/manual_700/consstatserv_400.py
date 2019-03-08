@@ -11,12 +11,12 @@ class ConsStatServ(consstatserv_310.ConsStatServ):
     def __init__(self):
         super(ConsStatServ, self).__init__()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'consStatServ_v3.10.xsd'
+        self.arquivo_esquema = u'consStatServ_v4.00.xsd'
 
 
 class RetConsStatServ(consstatserv_310.RetConsStatServ):
     def __init__(self):
         super(RetConsStatServ, self).__init__()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'retConsStatServ_v3.10.xsd'
+        self.arquivo_esquema = u'retConsStatServ_v4.00.xsd'
     

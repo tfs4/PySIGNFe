@@ -16,19 +16,19 @@ class ConsSitNFe(conssitnfe_310.ConsSitNFe):
     def __init__(self):
         super(ConsSitNFe, self).__init__()
         self.caminho_esquema = os.path.join(DIRNAME, u'schema', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'consSitNFe_v3.10.xsd'
+        self.arquivo_esquema = u'consSitNFe_v4.00.xsd'
 
 
 class RetConsSitNFe(conssitnfe_310.RetConsSitNFe):
     def __init__(self):
         super(RetConsSitNFe, self).__init__()
-        self.versao     = TagDecimal(nome=u'retConsSitNFe', codigo=u'ER01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'3.10', raiz=u'/')
+        self.versao     = TagDecimal(nome=u'retConsSitNFe', codigo=u'ER01', propriedade=u'versao', namespace=NAMESPACE_NFE, valor=u'4.00', raiz=u'/')
         self.dhRecbto   = TagDataHoraUTC(nome=u'dhRecbto' , codigo=u'ER07a', raiz=u'//retConsSitNFe')
         self.protNFe        = None
         self.retCancNFe     = None
         self.procEventoNFe  = []
         self.caminho_esquema = os.path.join(DIRNAME, u'schema', ESQUEMA_ATUAL + u'/')
-        self.arquivo_esquema = u'retConsSitNFe_v3.10.xsd'
+        self.arquivo_esquema = u'retConsSitNFe_v4.00.xsd'
 
     def get_xml(self):
         xml = XMLNFe.get_xml(self)

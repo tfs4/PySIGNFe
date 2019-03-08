@@ -3,6 +3,7 @@
 #from OpenSSL import crypto
 import socket
 import ssl
+import os.path
 from datetime import datetime
 import time
 import os
@@ -155,6 +156,7 @@ class ProcessadorNFe(object):
 
 
         if self.versao == u'4.00':
+            print('entrou aqui...')
             self._soap_envio   = SOAPEnvio_400()
             self._soap_envio.webservice = webservices_3.METODO_WS[servico]['webservice']
             self._soap_envio.metodo     = webservices_3.METODO_WS[servico]['metodo']
@@ -181,7 +183,13 @@ class ProcessadorNFe(object):
         # de uso de vários certificados e chaves diferentes na mesma máquina
         # ao mesmo tempo
         #
-        self.caminho_temporario = self.caminho_temporario or u'/tmp/'
+
+        if (os.path.isdir(u'/tmp/')):
+            pasta_tmp = u'/tmp/'
+        else:
+            pasta_tmp = u'c:/temp/'
+
+        self.caminho_temporario = self.caminho_temporario or pasta_tmp
 
         nome_arq_chave = self.caminho_temporario + uuid4().hex
         arq_tmp = open(nome_arq_chave, 'w')
@@ -472,6 +480,7 @@ class ProcessadorNFe(object):
 
     def consultar_cadastro_contribuinte(self, cpf_cnpj=None, inscricao_estadual=None, ambiente=None):
         novos_arquivos = []
+        print('Versao: ' + self.versao)
         if self.versao == u'2.00':
             envio = ConsCad_200()
             resposta = RetConsCad_200()
