@@ -5,6 +5,13 @@ Biblioteca de interface com o webservice de Nota Fiscal Eletronica da SEFAZ, ofi
 
 Desenvolvida em Python 3 no Windows, testada em Python 3 e 2 no GNU/Linux e Windows.
 
+
+Atualização
+----------
+* Pacote em atualização para a versão 4.00 da NF-e
+
+
+
 Implementações
 ----------
 * Geração do XML, assinatura, emissão e armazenamento de NF-e, NFC-e, NFS-e e CT-e.
@@ -43,6 +50,7 @@ Créditos
 Esta biblioteca foi baseada nos projetos: 
 * [Recursos-NFE-em-Python](https://github.com/marcydoty/Recursos-NFE-em-Python)
 * [PySPED](https://github.com/aricaldeira/PySPED)
+* [PySIGNFe](https://github.com/thiagopena/PySIGNFe)
 
 
 License LGPLv2.1
