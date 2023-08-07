@@ -22,7 +22,7 @@ if __name__ == '__main__':
     numero = u'27'
     justificativa = u'Teste de inutilizacao de NF-e'
     
-    processo = nova_nfe.inutilizar_nota(cnpj=cnpj, serie=serie, numero=numero, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.inutilizar_nota(cnpj=cnpj, serie=serie, numero=numero, justificativa=justificativa, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status: ' + processo.resposta.infInut.cStat.valor)
     print('Motivo: ' + processo.resposta.infInut.xMotivo.valor)

@@ -16,7 +16,7 @@ if __name__ == '__main__':
     
     info_certificado = nova_nfe.extrair_certificado_a1(arquivo, "associacao")
     
-    processo = nova_nfe.consultar_recibo(numero_recibo=u'310000051122111', cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', n_tentativas=3)
+    processo = nova_nfe.consultar_recibo(numero_recibo=u'310000051122111', cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', n_tentativas=3)
     
     print('Status: ' + processo.resposta.cStat.valor)
     print('Motivo: ' + processo.resposta.xMotivo.valor)

@@ -41,7 +41,7 @@ if __name__ == '__main__':
     '''
     nsu = u'0'
         
-    processo = nova_nfe.consultar_nfe_destinatario(cnpj=cnpj, indnfe=indnfe, indemi=indemi, nsu=nsu, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'2.00', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.consultar_nfe_destinatario(cnpj=cnpj, indnfe=indnfe, indemi=indemi, nsu=nsu, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'2.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status: ' + processo.resposta.cStat.valor)
     print('Motivo: ' + processo.resposta.xMotivo.valor)

@@ -22,7 +22,7 @@ if __name__ == '__main__':
     texto_correcao = u'Teste de correcao de NF-e'
     sequencia = 1
     
-    processo = nova_nfe.emitir_carta_correcao(chave=chave, texto_correcao=texto_correcao, sequencia=sequencia, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'3.10', ambiente=2, estado=u'MG', contingencia=False)
+    processo = nova_nfe.emitir_carta_correcao(chave=chave, texto_correcao=texto_correcao, sequencia=sequencia, cert=info_certificado['cert'], key=info_certificado['key'], versao=u'4.00', ambiente=2, estado=u'SP', contingencia=False)
     
     print('Status do Lote: ', processo.resposta.cStat.valor)
     print('Motivo do Lote: ', processo.resposta.xMotivo.valor)    

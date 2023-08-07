@@ -20,7 +20,7 @@ Serviços:
 
 class ct_e(NotaFiscal):
 
-    def consultar_servidor(self, cert, key, versao=u'3.00', ambiente=2, estado=u'MG',
+    def consultar_servidor(self, cert, key, versao=u'3.00', ambiente=2, estado=u'SP',
                            salvar_arquivos=True):
         
         p = ProcessadorCTe()
@@ -40,7 +40,7 @@ class ct_e(NotaFiscal):
         return{'status': status, 'envio': processo.envio.xml, 'resposta': processo.resposta.xml,
                'reason': processo.resposta.reason}
                
-    def processar_lote_cte(self, lista_cte, cert, key, versao=u'3.00', ambiente=2, estado=u'MG',
+    def processar_lote_cte(self, lista_cte, cert, key, versao=u'3.00', ambiente=2, estado=u'SP',
                            tipo_contingencia=False, salvar_arquivos=True, n_consultas_recibo=2, consultar_servico=True):
                            
         p = ProcessadorCTe()
@@ -82,7 +82,7 @@ class ct_e(NotaFiscal):
         return vals
         
     def inutilizar_cte(self, cnpj, serie, numero, justificativa, cert, key, versao=u'3.00',
-                        ambiente=2, estado=u'MG', tipo_contingencia=False, salvar_arquivos=True):
+                        ambiente=2, estado=u'SP', tipo_contingencia=False, salvar_arquivos=True):
         
         p = ProcessadorCTe()
         p.versao = versao
@@ -106,7 +106,7 @@ class ct_e(NotaFiscal):
                 'reason': processo.resposta.reason}
         return vals
         
-    def consultar_cte(self, chave, cert, key, versao=u'3.00', ambiente=2, estado=u'MG',
+    def consultar_cte(self, chave, cert, key, versao=u'3.00', ambiente=2, estado=u'SP',
                       tipo_contingencia=False, salvar_arquivos=True):
         
         p = ProcessadorCTe()
@@ -129,7 +129,7 @@ class ct_e(NotaFiscal):
         return vals
         
     def cancelar_cte(self, cnpj, chave, protocolo, justificativa, cert, key, versao=u'3.00',
-                      ambiente=2, estado=u'MG', tipo_contingencia=False, salvar_arquivos=True):
+                      ambiente=2, estado=u'SP', tipo_contingencia=False, salvar_arquivos=True):
         
         p = ProcessadorCTe()
         p.versao = versao
@@ -156,7 +156,7 @@ class ct_e(NotaFiscal):
         return vals
         
     def emitir_carta_correcao(self, chave, cnpj, cert, key, correcoes=[], sequencia=None,
-                              versao=u'3.00', ambiente=2, estado=u'MG', tipo_contingencia=False,
+                              versao=u'3.00', ambiente=2, estado=u'SP', tipo_contingencia=False,
                               salvar_arquivos=True):
         
         p = ProcessadorCTe()

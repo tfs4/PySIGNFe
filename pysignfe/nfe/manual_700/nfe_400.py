@@ -43,7 +43,8 @@ class ISSQN(nfe_310.ISSQN):
 
 
 ##NT 2015/003
-class ICMSUFDest(XMLNFe):
+# class ICMSUFDest(XMLNFe):
+class ICMSUFDest(nfe_310.ICMSUFDest):
     def __init__(self):
         super(ICMSUFDest, self).__init__()
         # Incluido campo relativo ao FCP (Nota Tecnica 2016.002)
@@ -222,6 +223,20 @@ class ICMS(nfe_310.ICMS):
         self.vICMSOp    = TagDecimal(nome='vICMSOp', codigo='P16a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
         self.pDif       = TagDecimal(nome='pDif', codigo='P16b', tamanho=[1, 7, 1], decimais=[0, 2, 4], raiz='', obrigatorio=False)
         self.vICMSDif   = TagDecimal(nome='vICMSDif', codigo='P16b', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+
+
+        # Incluidos campos relativos ao FCP (Nota Tecnica 2016.002)
+        self.pFCP   = TagDecimal(nome='pFCP', codigo='N17b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
+        self.vFCP   = TagDecimal(nome='vFCP', codigo='N17c', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+        self.vBCFCP = TagDecimal(nome='vBCFCP', codigo='N17a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+        self.pFCPST   = TagDecimal(nome='pFCPST', codigo='N23b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
+        self.vFCPST   = TagDecimal(nome='vFCPST', codigo='N23d', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+        self.vBCFCPST = TagDecimal(nome='vBCFCPST', codigo='N23a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+        self.pST   = TagDecimal(nome='pST', codigo='N26a', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
+        self.pFCPSTRet   = TagDecimal(nome='pFCPSTRet', codigo='N27b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
+        self.vFCPSTRet   = TagDecimal(nome='vFCPSTRet', codigo='N27d', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+        self.vBCFCPSTRet = TagDecimal(nome='vBCFCPSTRet', codigo='N27a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
+
         #
         # Situação tributária do Simples Nacional
         #
@@ -235,18 +250,6 @@ class ICMS(nfe_310.ICMS):
         self.CST = TagCSTICMS()
         self.CST.grupo_icms = self
         self.CST.valor = '41'
-
-        # Incluidos campos relativos ao FCP (Nota Tecnica 2016.002)
-        self.pFCP   = TagDecimal(nome='pFCP', codigo='N17b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
-        self.vFCP   = TagDecimal(nome='vFCP', codigo='N17c', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.vBCFCP = TagDecimal(nome='vBCFCP', codigo='N17a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.pFCPST   = TagDecimal(nome='pFCPST', codigo='N23b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
-        self.vFCPST   = TagDecimal(nome='vFCPST', codigo='N23d', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.vBCFCPST = TagDecimal(nome='vBCFCPST', codigo='N23a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.pST   = TagDecimal(nome='pST', codigo='N26a', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
-        self.pFCPSTRet   = TagDecimal(nome='pFCPSTRet', codigo='N27b', tamanho=[1,  5, 1], decimais=[0, 4, 4], raiz='', obrigatorio=False)
-        self.vFCPSTRet   = TagDecimal(nome='vFCPSTRet', codigo='N27d', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
-        self.vBCFCPSTRet = TagDecimal(nome='vBCFCPSTRet', codigo='N27a', tamanho=[1, 15, 1], decimais=[0, 2, 2], raiz='', obrigatorio=False)
 
     def get_xml(self):
         #
