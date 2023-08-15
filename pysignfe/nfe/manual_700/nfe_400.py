@@ -32,7 +32,7 @@ class IPIDevol(XMLNFe):
         super(IPIDevol, self).__init__()
 
 
-class ImpostoDevol(XMLNFe):
+class ImpostoDevol(nfe_310.ImpostoDevol):
     def __init__(self):
         super(ImpostoDevol, self).__init__()
 
@@ -1416,6 +1416,7 @@ class InfNFe(nfe_310.InfNFe):
         self.total    = Total()
         self.transp   = Transp()
         self.cobr     = Cobr()
+        self.pag      = Pag()
         self.infAdic  = InfAdic()
         self.exporta  = Exporta()
         self.compra   = Compra()
