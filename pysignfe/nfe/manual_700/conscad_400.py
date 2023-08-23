@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from pysignfe.nfe.manual_300.conscad_101 import _InfCadRecebido
 
 from pysignfe.xml_sped import *
 from pysignfe.nfe.manual_700 import ESQUEMA_ATUAL
