@@ -72,8 +72,10 @@ class nf_e(NotaFiscal):
         
         if numero_lote is None:
             numero_lote = datetime.now().strftime('%Y%m%d%H%M%S')
-        
-        if versao == '3.10':
+
+        if versao == '4.00':
+            n = NFe_400()
+        elif versao == '3.10':
             n = NFe_310()
         else:
             n = NFe_200()
@@ -114,8 +116,9 @@ class nf_e(NotaFiscal):
         
         if numero_lote is None:
             numero_lote = datetime.now().strftime('%Y%m%d%H%M%S')
-        
-        if versao == '3.10':
+        if versao == '4.00':
+            n = NFe_400()
+        elif versao == '3.10':
             n = NFe_310()
         else:
             n = NFe_200()
@@ -171,7 +174,9 @@ class nf_e(NotaFiscal):
         if isinstance(lista_xml_nfe[0], basestring) and lista_xml_nfe:
             lista_nfe = []
             for x in lista_xml_nfe:
-                if versao == '3.10':
+                if versao == '4.00':
+                    n = NFe_400()
+                elif versao == '3.10':
                     n = NFe_310()
                 else:
                     n = NFe_200()
@@ -419,7 +424,9 @@ class nf_e(NotaFiscal):
         """
         d = DANFE()
         if isinstance(proc_nfe, basestring):
-            if versao == '3.10':
+            if versao == '4.00':
+                proc = ProcNFe_400()
+            elif versao == '3.10':
                 proc = ProcNFe_310()
             else:
                 proc = ProcNFe_200()
@@ -460,7 +467,9 @@ class nf_e(NotaFiscal):
         '''
         d = DANFE()
         if isinstance(proc_nfce, basestring):
-            if versao == '3.10':
+            if versao == '4.00':
+                proc = ProcNFe_400()
+            elif versao == '3.10':
                 proc = ProcNFe_310()
             else:
                 raise ValueError("Geracao de DANFCE apenas valido com versao 3.10")
